@@ -4,6 +4,7 @@ import cors from "cors";
 
 //IMPORT ROUTES
 import { userRoutes } from "./routes/user.routers";
+import { productsRoutes } from "./routes/products.routers";
 
 //INITIALIZE
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(express.json());
 
 //APP USE ROUTES
 app.use(userRoutes);
+app.use(productsRoutes);
 
 //APP LISTEN
 app.listen(process.env.PORT, () => {
