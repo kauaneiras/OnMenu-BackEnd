@@ -1,15 +1,14 @@
 import { Router } from "express";
-import { validateBody } from "../middlewares/schema.validation.middleware";
-import { signInSchema, signUpSchema, forgotpasswordSchema, changepasswordSchema } from "../schemas/users.schemas";
+import { signupMiddleware, signinMiddleware, forgotpasswordMiddleware, changepasswordMiddleware } from "../middlewares/user.middleware";
+import { signupController, signinController, forgotpasswordController, changepasswordController, logoutController } from "../controllers/user.controller";
 
 const userRoutes = Router();
 
-userRoutes.post("/signup", validateBody(signUpSchema), controller);
-userRoutes.post("/signin", validateBody(signInSchema), controller);
-userRoutes.post("/forgotpassword", validateBody(forgotpasswordSchema), controller);
-userRoutes.post ("/changepassword:token", validateBody(changepasswordSchema), controller);
-userRoutes.post("/profile", validateBody(signUpSchema), controller);
-userRoutes.post("/logout", controller);
+userRoutes.post("/signup", signupMiddleware , signupController);
+userRoutes.post("/signin", signinMiddleware, signinController);
+userRoutes.post("/forgotpassword", forgotpasswordMiddleware, forgotpasswordController);
+userRoutes.post ("/changepassword:token", changepasswordMiddleware, changepasswordController);
+userRoutes.post("/logout", logoutController);
 
 export { userRoutes };
 

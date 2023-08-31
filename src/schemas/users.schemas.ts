@@ -14,7 +14,12 @@ const signUpSchema = Joi.object<SignUpParams>({
     name: Joi.string().required(),
     email: Joi.string().email().required(),
     password: Joi.string().required(),
-    confirmPassword: Joi.string().required(),
+    confirmPassword: Joi.string()
+        .valid(Joi.ref('password'))
+        .required()
+        .messages({
+            'any.only': 'A confirmação da senha deve ser igual à senha.',
+        }),
 });
 
 const forgotpasswordSchema = Joi.object<ForgotpasswordParams>({
@@ -23,7 +28,12 @@ const forgotpasswordSchema = Joi.object<ForgotpasswordParams>({
 
 const changepasswordSchema = Joi.object<ChangepasswordParams>({
     password: Joi.string().required(),
-    confirmPassword: Joi.string().required(),
+    confirmPassword: Joi.string()
+        .valid(Joi.ref('password'))
+        .required()
+        .messages({
+            'any.only': 'A confirmação da senha deve ser igual à senha.',
+        }),
 });
 
 export { signInSchema, signUpSchema, forgotpasswordSchema, changepasswordSchema };
